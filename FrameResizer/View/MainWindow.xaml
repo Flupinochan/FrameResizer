@@ -1,0 +1,296 @@
+﻿<!-- WindowのStyleにMaterialDesignのスタイルを適用 -->
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrameResizer"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Class="FrameResizer.MainWindow"
+        mc:Ignorable="d"
+        Style="{StaticResource MaterialDesignWindow}"
+        Title="FrameResizer"
+        Height="480"
+        Width="530"
+        WindowStartupLocation="CenterScreen">
+
+    <materialDesign:DialogHost x:Name="FinishedDialog"
+                               VerticalAlignment="Stretch"
+                               HorizontalAlignment="Stretch"
+                               ApplyBlurBackground="True"
+                               BlurRadius="5"
+                               CloseOnClickAway="True"
+                               IsOpen="{Binding Path=IsDialogOpen,
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}">
+        <!-- ダイアログ -->
+        <materialDesign:DialogHost.DialogContent>
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Text="{Binding Path=DialogMessage}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="16"
+                           Padding="0, 0, 0, 14"/>
+                <Button x:Name="CloseDialogButton"
+                        Grid.Row="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="OK"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Command="{Binding Path=CloseDialogButtonClickCommand}"/>
+            </Grid>
+        </materialDesign:DialogHost.DialogContent>
+        
+        <!-- メインコンテンツ -->
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="SelectFileButton"
+                            Grid.Column="0"
+                            VerticalAlignment="Top"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="MaterialDesignIconButton"
+                            Command="{Binding Path=SelectFileButtonClickCommand}">
+                        <materialDesign:PackIcon Kind="FilePlusOutline"/>
+                    </Button>
+
+                    <Button x:Name="SelectFolderButton"
+                            Grid.Column="1"
+                            VerticalAlignment="Top"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="MaterialDesignIconButton"
+                            Command="{Binding Path=SelectFolderButtonClickCommand}">
+                        <materialDesign:PackIcon Kind="FolderPlusOutline"/>
+                    </Button>
+
+                    <Expander Grid.Column="2"
+                              HorizontalAlignment="Stretch"
+                              Header="選択した画像">
+                        <ListBox x:Name="SelectedFileListBox"
+                                 HorizontalAlignment="Stretch"
+                                 MaxHeight="164"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 ItemsSource="{Binding Path=SelectedImageNameList,
+                                                       Mode=OneWay}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                    <Setter Property="Margin" Value="15, 0, 0, 0"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                    </Expander>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="SelectOutputFolderButton"
+                            Grid.Column="0"
+                            Margin="0, 10, 0, 0"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="MaterialDesignIconButton"
+                            Command="{Binding Path=SelectOutputFolderButtonClickCommand}">
+                        <materialDesign:PackIcon Kind="FolderPlusOutline"/>
+                    </Button>
+
+                    <TextBox x:Name="OutputFolderTextBox"
+                             Grid.Column="1"
+                             Margin="15, 10, 0, 0"
+                             VerticalAlignment="Center"
+                             materialDesign:HintAssist.Hint="出力フォルダ ※デフォルトでは画像を上書き保存します"
+                             materialDesign:HintAssist.FloatingScale="0.8"
+                             materialDesign:TextFieldAssist.TextBoxViewMargin="0 10 0 0"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Path=OutputFolderPath,
+                                            Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged}"/>
+
+                </Grid>
+
+                <Grid Grid.Row="4"
+                      Margin="15, 28, 0, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                           Padding="0, 0, 0, 10"
+                           Text="選択した方を基準にリサイズします ※デフォルトはZennの最大Width708pxです"/>
+
+                    <Grid Grid.Row="1" Margin="0, 0, 0, 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <RadioButton x:Name="WidthRadioButton"
+                                     Grid.Column="0"
+                                     Content="Width"
+                                     Style="{StaticResource MaterialDesignRadioButton}"
+                                     GroupName="WidthHeightGroup"
+                                     Command="{Binding Path=WidthRadioButtonCheckedCommand}"
+                                     IsChecked="True"/>
+                        <materialDesign:DecimalUpDown x:Name="WidthDecimalUpDown"
+                                                      Grid.Column="1"
+                                                      ValueStep="1"
+                                                      Minimum="1"
+                                                      Margin="67, 3, 0, 0"
+                                                      IsEnabled="{Binding Path=IsWidthDecimalUpDownEnabled,
+                                                                          Mode=TwoWay,
+                                                                          UpdateSourceTrigger=PropertyChanged}"
+                                                      Value="{Binding Path=OutputWidth,
+                                                                           Mode=TwoWay,
+                                                                           UpdateSourceTrigger=PropertyChanged,
+                                                                           FallbackValue=9999,
+                                                                           TargetNullValue=9999}"/>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <RadioButton x:Name="HeightRadioButton"
+                                     Grid.Column="0"
+                                     Content="Height"
+                                     Style="{StaticResource MaterialDesignRadioButton}"
+                                     GroupName="WidthHeightGroup"
+                                     Command="{Binding Path=HeightRadioButtonCheckedCommand}"/>
+                        <materialDesign:DecimalUpDown x:Name="HeightDecimalUpDown"
+                                                      Grid.Column="1"
+                                                      ValueStep="1"
+                                                      Minimum="1"
+                                                      Margin="62, 3, 0, 0"
+                                                      IsEnabled="{Binding Path=IsHeightDecimalUpDownEnabled,
+                                                                          Mode=TwoWay,
+                                                                          UpdateSourceTrigger=PropertyChanged}"
+                                                      Value="{Binding Path=OutputHeight,
+                                                                      Mode=TwoWay,
+                                                                      UpdateSourceTrigger=PropertyChanged,
+                                                                      FallbackValue=9999,
+                                                                      TargetNullValue=9999}"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="6"
+                  Margin="15, 24, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Padding="0, 5, 0, 0"
+                               Text="枠線の色 (Hex)"/>
+                    <TextBox x:Name="BorderColorTextBox"
+                             Grid.Column="1"
+                             Margin="36, 0, 0, 0"
+                             Padding="0, 4, 0, 0"
+                             Width="100"
+                             materialDesign:HintAssist.FloatingScale="0.1"
+                             materialDesign:TextFieldAssist.TextBoxViewMargin="0 0 0 4"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Path=BorderColor,
+                                            Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged,
+                                            FallbackValue=バインドされていません,
+                                            TargetNullValue=nullがバインドされています}"/>
+                </Grid>
+
+                <Grid Grid.Row="8"
+                  Margin="15, 24, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                           Padding="0, 5, 0, 0"
+                           Text="枠線の太さ (px)"/>
+                    <materialDesign:DecimalUpDown x:Name="BorderSizeDecimalUpDown"
+                                              Grid.Column="1"
+                                              ValueStep="1"
+                                              Minimum="1"
+                                              Margin="35, 0, 0, 0"
+                                              Value="{Binding Path=BorderSize,
+                                                              Mode=TwoWay,
+                                                              UpdateSourceTrigger=PropertyChanged,
+                                                              FallbackValue=バインドされていません,
+                                                              TargetNullValue=nullがバインドされています}"/>
+                </Grid>
+
+                <Grid Grid.Row="10" Margin="0, 20, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox Grid.Column="0"
+                              Margin="15, 0, 0, 0"
+                              materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding ElementName=DisplaySelectedItemCheckBox, Path=IsChecked}"
+                              ItemsSource="{Binding Path=ProcessType}"
+                              SelectedItem="{Binding Path=SelectedProcessType,
+                                                     Mode=TwoWay,
+                                                     UpdateSourceTrigger=PropertyChanged,
+                                                     FallbackValue=バインドされていません,
+                                                     TargetNullValue=nullがバインドされています}"/>
+
+                    <Button x:Name="ExecuteButton"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Content="実行"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=IsIndeterminate,
+                                                                                              Mode=TwoWay,
+                                                                                              UpdateSourceTrigger=PropertyChanged}"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding Path=IsIndicatorVisible,
+                                                                                                 Mode=TwoWay,
+                                                                                                 UpdateSourceTrigger=PropertyChanged}"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Command="{Binding Path=ExecuteButtonClickCommand}"/>
+                </Grid>
+
+
+
+            </Grid>
+        </ScrollViewer>
+    </materialDesign:DialogHost>
+</Window>

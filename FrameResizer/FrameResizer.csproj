@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <PackageIcon>ShopIcon128.png</PackageIcon>
+    <Authors>MetalMental</Authors>
+    <ApplicationIcon>TitleIcon.ico</ApplicationIcon>
+    <Title>FrameResizer</Title>
+    <SignAssembly>False</SignAssembly>
+    <Description>A tool to batch resize and add borders to multiple images.</Description>
+    <PackageProjectUrl>https://github.com/Flupinochan/FrameResizer</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Flupinochan/FrameResizer</RepositoryUrl>
+    <PackageTags>image</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="ShopIcon128.png" />
+    <Content Include="TitleIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="MaterialDesignColors" Version="5.2.2-ci938" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.2.2-ci938" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.2.2-ci938" />
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0-preview.2.25163.2" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.7" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ShopIcon128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
