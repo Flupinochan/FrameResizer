@@ -9,7 +9,7 @@
   <Identity
     Name="MetalMental.FrameResizer"
     Publisher="CN=3C60EF58-65BB-49C9-A680-D10CF22EF565"
-    Version="1.0.17.0" />
+    Version="1.0.18.0" />
 
   <Properties>
     <DisplayName>FrameResizer</DisplayName>

@@ -1,0 +1,65 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <!-- インストール元コードを指定 -->
+  <Fragment>
+    <!-- Directoryは同一IDを指定すれば参照可能 Nameは1度だけ指定する -->
+    <ComponentGroup Id="SourceCode" Directory="INSTALLFOLDER">
+        <Component>
+           <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\FrameResizer.exe" />
+        </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\CommunityToolkit.Mvvm.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\ControlzEx.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\FrameResizer.deps.json" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\FrameResizer.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\FrameResizer.pdb" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\FrameResizer.runtimeconfig.json" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\MahApps.Metro.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\MaterialDesignColors.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\MaterialDesignThemes.MahApps.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\MaterialDesignThemes.Wpf.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\Microsoft.WindowsAPICodePack.Shell.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\Microsoft.WindowsAPICodePack.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\Microsoft.Xaml.Behaviors.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\SixLabors.Fonts.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\SixLabors.ImageSharp.Drawing.dll" />
+      </Component>
+      <Component>
+        <File Source="..\FrameResizer\bin\$(Configuration)\net8.0-windows\SixLabors.ImageSharp.dll" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
