@@ -1,0 +1,18 @@
+﻿<!--https://github.com/wixtoolset/wix/blob/main/src/ext/UI/wixlib/WixUI_ja-jp.wxl-->
+<!-- ファイルさえ作成すれば、デフォルト値は上記に記載してある日本語が適用される。オーバーライドしたければ以下のように指定していく -->
+<WixLocalization xmlns="http://wixtoolset.org/schemas/v4/wxl" Culture="ja-jp">
+	<String Id="WelcomeDlgTitle" Value="{\WixUI_Font_Bigger}[ProductName]へようこそ!" />
+	<String Id="WelcomeDlgDescription" Value="" />
+
+	<String Id="LicenseAgreementDlgTitle" Overridable="yes" Value="{\WixUI_Font_Title}ライセンス規約" />
+	<String Id="LicenseAgreementDlgDescription" Overridable="yes" Value="以下をよく読んでね!" />
+	<String Id="LicenseAgreementDlgLicenseAcceptedCheckBox" Overridable="yes" Value="同意する(&amp;A)" />
+
+	<String Id="InstallDirDlgDescription" Overridable="yes" Value="多分どこでも動きます..." />
+
+	<String Id="VerifyReadyDlgInstallTitle" Overridable="yes" Value="{\WixUI_Font_Title}[ProductName] をインストールする覚悟はいいか!?" />
+	<String Id="VerifyReadyDlgInstallText" Overridable="yes" Value="押すなよ! 絶対に押すなよ!" />
+
+	<String Id="ExitDialogTitle" Overridable="yes" Value="{\WixUI_Font_Bigger}インストールありがとう!" />
+	<String Id="ExitDialogDescription" Overridable="yes" Value="" />
+</WixLocalization>

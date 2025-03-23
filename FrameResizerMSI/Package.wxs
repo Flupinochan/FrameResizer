@@ -1,30 +1,36 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
 	 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+	<!--https://docs.firegiant.com/wix/tools/wixext/wixui/-->
 	<Package Name="FrameResizer"
 			 Manufacturer="MetalMental"
 			 Version="1.0.0.0"
 			 Language="1041"
 			 Scope="perMachine"
 			 UpgradeCode="3c0ab060-0130-41d8-b28f-cb7d2abbc100">
-		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
 
 		<!-- .cabファイルを.msiファイルに埋め込み、インストーラーファイル単体にする設定 -->
 		<Media Id="1" Cabinet="app.cab" EmbedCab="yes" />
 		<!-- ICON -->
 		<Icon Id="Icon" SourceFile="../FrameResizer/TitleIcon.ico" />
-		<!-- 使用許諾 -->
-		<WixVariable Id="WixUILicenseRtf" Value="license.rtf"/>
 
 		<!-- 機能の定義 -->
 		<Feature Id="Main" Level='1'>
-			<!-- ComponentはRedで参照 -->
+			<!-- ComponentはRefで参照 -->
 			<ComponentGroupRef Id="SourceCode"/>
 			<ComponentGroupRef Id="ShortcutGroup"/>
 		</Feature>
 
-		<ui:WixUI
-        Id="WixUI_Minimal"
-        InstallDirectory="INSTALLFOLDER"
-        />
+		<!--https://github.com/wixtoolset/wix3/blob/develop/src/ext/UIExtension/wixlib/InstallDirDlg.wxs-->
+		<!-- ライセンスファイルの指定 ※リッチテキスト -->
+		<WixVariable Id="WixUILicenseRtf" Value="license.rtf"/>
+				
+		<!-- インストーラーの画像変更 -->
+		<WixVariable Id="WixUIBannerBmp" Value="images\WixUIBannerBmp.png"/>
+		<WixVariable Id="WixUIDialogBmp" Value="images\WixUIDialogBmp.png"/>
+		<WixVariable Id="WixUIExclamationIco" Value="images\WixUIExclamationIco.png"/>
+		<WixVariable Id="WixUIInfoIco" Value="images\WixUIExclamationIco.png"/>
+		
+		<!-- インストーラーのDialogの種類 -->
+		<ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER"/>
 	</Package>
 </Wix>
