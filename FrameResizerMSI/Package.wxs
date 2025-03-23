@@ -1,4 +1,5 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+	 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
 	<Package Name="FrameResizer"
 			 Manufacturer="MetalMental"
 			 Version="1.0.0.0"
@@ -21,5 +22,9 @@
 			<ComponentGroupRef Id="ShortcutGroup"/>
 		</Feature>
 
+		<ui:WixUI
+        Id="WixUI_Minimal"
+        InstallDirectory="INSTALLFOLDER"
+        />
 	</Package>
 </Wix>
