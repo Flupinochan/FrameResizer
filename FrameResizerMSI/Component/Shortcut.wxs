@@ -27,7 +27,8 @@
 				<RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]\desktop' Type='string' Value='' KeyPath='yes' />
 			</Component>
 
-			<!-- Startupのショートカット Directory="StartupFolder" は固定-->
+			<!-- Startupのショートカット Directory="StartupFolder" は固定名、StartupはショートカットというよりPC起動時にアプリを起動する設定 -->
+			<!--
 			<Component Id='ShortcutStartupFolderComponent' Guid="19886d0f-f3ab-4cf9-bdd2-9b10eeca1938">
 				<Shortcut Id="ShortcutStartupFolder"
 						  Name="FrameResizerShortcut"
@@ -39,6 +40,7 @@
 				<RemoveFolder Id='RemoveStartupFolder' On='uninstall' />
 				<RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]\startup' Type='string' Value='' KeyPath='yes' />
 			</Component>
+			-->
 		</ComponentGroup>
 	</Fragment>
 </Wix>
